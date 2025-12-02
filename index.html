@@ -9,8 +9,7 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
-        "SF Pro Display", "Noto Sans KR", system-ui, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, "Noto Sans CJK KR", "Noto Sans SC", sans-serif;
     }
 
     body {
@@ -18,20 +17,24 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: radial-gradient(circle at top left, #a1c4fd, #c2e9fb);
+      /* 改成浅蓝铺满整个背景 */
+      background: #eaf3ff;
       color: #111827;
       transition: background 0.3s ease;
     }
 
     .phone {
-      width: 360px;
-      max-width: 100%;
-      border-radius: 32px;
-      padding: 20px 18px 24px;
-      background: linear-gradient(145deg, #e0f0ff, #f0e9ff);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
+      /* 主容器尽量贴边，占满更多宽度 */
+      width: 100%;
+      max-width: 480px;
+      border-radius: 20px;
+      padding: 20px 16px 24px;
+      /* 和整体背景同一色系，略带顶部高光，增加一点立体感 */
+      background: linear-gradient(180deg, #f2f7ff 0%, #e4f0ff 40%, #e0ecff 100%);
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.16);
       position: relative;
       overflow: hidden;
+      margin: 0;
       transition: background 0.3s ease, box-shadow 0.3s ease;
     }
 
@@ -75,12 +78,13 @@
     }
 
     .card {
-      border-radius: 18px;
-      padding: 16px 18px;
-      background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      border-radius: 16px;
+      padding: 14px 16px;
+      background: rgba(246, 249, 255, 0.96); /* 比背景略亮一点，形成卡片层级 */
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.7); /* 上沿有轻微高光边框 */
       margin-bottom: 12px;
       transition: background 0.3s ease, box-shadow 0.3s ease;
     }
@@ -91,7 +95,7 @@
     }
 
     .card-main-title {
-      font-size: 13px;
+      font-size: 16px;
       opacity: 0.9;
       margin-bottom: 10px;
     }
@@ -118,7 +122,7 @@
     }
 
     .card-section-title {
-      font-size: 13px;
+      font-size: 16px;
       font-weight: 600;
       color: rgba(0, 0, 0, 0.6);
       margin-bottom: 8px;
@@ -176,10 +180,10 @@
     }
 
     .word-text {
-      font-size: 24px;
+      font-size: 26px;  /* 只放大题目这行，不影响其他文字 */
       font-weight: 700;
       margin-bottom: 4px;
-      min-height: 30px;
+      min-height: 32px;
     }
 
     .hint-text {
@@ -187,6 +191,22 @@
       color: #6b7280;
       margin-bottom: 8px;
       min-height: 14px;
+    }
+
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 4px;
+      font-size: 10px;
+      color: #6b7280;
+      margin-bottom: 6px;
+      min-height: 12px;
+    }
+
+    .meta-text {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .input-row {
@@ -202,7 +222,7 @@
       border-radius: 12px;
       border: none;
       background: rgba(255, 255, 255, 0.95);
-      font-size: 13px;
+      font-size: 16px;
       outline: none;
       color: #111827;
     }
@@ -215,11 +235,22 @@
       font-weight: 600;
       cursor: pointer;
       white-space: nowrap;
+      transition: transform 0.08s ease, box-shadow 0.12s ease, background 0.12s ease;
     }
 
     .btn.small {
       padding: 5px 10px;
       font-size: 10px;
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.12);
+    }
+
+    .btn:focus-visible {
+      outline: 2px solid rgba(37, 99, 235, 0.5);
+      outline-offset: 2px;
     }
 
     .btn-primary {
@@ -232,13 +263,101 @@
       color: #374151;
     }
 
-    .result-title {
-      font-size: 13px;
-      font-weight: 600;
+    
+    .result-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
       margin-bottom: 4px;
     }
 
-    .result-text {
+    .result-main {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .result-header .btn {
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    
+    .result-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      margin-bottom: 2px;
+    }
+
+    .result-pill {
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #e5e7eb;
+      color: #374151;
+    }
+
+    .result-pill.correct {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .result-pill.wrong {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .result-pill.almost {
+      background: #fef9c3;
+      color: #92400e;
+    }
+
+    .result-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: rgba(0, 0, 0, 0.6);
+    }
+
+    
+    .input-shake {
+      animation: inputShake 0.18s ease-in-out;
+    }
+
+    @keyframes inputShake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-2px); }
+      50% { transform: translateX(2px); }
+      75% { transform: translateX(-1px); }
+      100% { transform: translateX(0); }
+    }
+
+    #resultCard.card-correct {
+      animation: cardCorrectGlow 0.28s ease-out;
+      box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.5), 0 10px 25px rgba(34, 197, 94, 0.18);
+    }
+
+    #resultCard.card-wrong {
+      animation: cardWrongShake 0.26s ease-in-out;
+      box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.45), 0 10px 25px rgba(239, 68, 68, 0.12);
+    }
+
+    @keyframes cardCorrectGlow {
+      0% { transform: translateY(0); }
+      40% { transform: translateY(-1px); }
+      100% { transform: translateY(0); }
+    }
+
+    @keyframes cardWrongShake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-2px); }
+      50% { transform: translateX(2px); }
+      75% { transform: translateX(-1px); }
+      100% { transform: translateX(0); }
+    }
+.result-text {
       font-size: 12px;
       margin-bottom: 4px;
     }
@@ -256,9 +375,14 @@
     }
 
     .correct-answer {
-      font-size: 13px;
+      font-size: 16px;
       color: #111827;
-      margin-bottom: 4px;
+      margin-top: 6px;
+      margin-bottom: 6px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      background: rgba(240, 246, 255, 0.85); /* 更淡的浅蓝，接近白色 */
+      border: 1px solid rgba(148, 163, 184, 0.25); /* 较浅的灰蓝边框 */
     }
 
     .example {
@@ -466,6 +590,11 @@
       content: "▼ ";
     }
 
+    /* 手动折叠用 open 状态（例如：单元进度总览） */
+    .summary-title.open::before {
+      content: "▼ ";
+    }
+
     /* ===== 夜间模式样式 ===== */
     body.dark {
       background: radial-gradient(circle at top left, #020617, #0b1120);
@@ -613,19 +742,9 @@
     body.dark #aiStatusText {
       color: #9ca3af;
     }
-  
-  .storage-warning {
-    margin: 8px 12px;
-    padding: 6px 10px;
-    background: #FFF7D6;
-    color: #8A6D1A;
-    border-radius: 10px;
-    font-size: 13px;
-  }
-</style>
+  </style>
 </head>
 <body>
-  <div id="storageWarning" class="storage-warning" style="display:none;">⚠️ 当前浏览器可能禁止本地存储，本页的统计和错题本在刷新后可能会丢失。</div>
   <div class="phone">
     <div class="theme-toggle-wrapper">
       <button class="ai-toggle-chip" id="aiToggleChip">AI OFF</button>
@@ -738,6 +857,10 @@
 
         <div class="word-text" id="questionText">直接点“下一题”开始练习~</div>
         <div class="hint-text" id="hintText"></div>
+        <div class="meta-row">
+          <span class="meta-text" id="unitPosText"></span>
+          <span class="meta-text" id="recentStatText"></span>
+        </div>
 
         <div class="input-row">
           <input
@@ -803,7 +926,23 @@
         </details>
       </div>
 
-      <!-- 造句大栏目 -->
+      <!-- 结果卡片 + 三个子框 -->
+      <div class="card" id="resultCard">
+        <div class="result-header">
+          <div class="result-main">
+            <div class="result-title-row">
+              <div class="result-title">结果 · AI 판단</div>
+              <span class="result-pill" id="resultPill">待作答</span>
+            </div>
+            <div class="result-text" id="resultMsg">还没有作答。先在上面输入答案，然后点「确认」按钮。</div>
+          </div>
+        </div>
+
+        <div class="correct-answer" id="correctAnswer"></div>
+        <div class="example" id="exampleArea" style="display:none;"></div>
+      </div>
+
+      <!-- 学习统计总览卡片 -->
       <div class="card" id="sentenceCard">
         <div class="card-section-title">造句 · 문장 연습</div>
 
@@ -896,18 +1035,8 @@
         </details>
       </div>
 
-      <!-- 结果卡片 + 三个子框 -->
-      <div class="card" id="resultCard">
-        <div class="result-title">结果 · AI 판단</div>
-        <div class="result-text" id="resultMsg">还没有作答。</div>
-        <div class="correct-answer" id="correctAnswer"></div>
-
-        <div style="margin-top:4px; display:flex; gap:6px; flex-wrap:wrap;">
-          <button class="btn btn-secondary small" id="favToggleBtn">收藏当前单词</button>
-        </div>
-
-        <div class="example" id="exampleArea" style="display:none;"></div>
-
+      <div class="card" id="summaryCard">
+        <div class="card-section-title">学习统计 · 记录 · 单元进度</div>
         <div class="subcards">
           <div class="subcard">
             <div class="subcard-title">学习统计</div>
@@ -924,12 +1053,15 @@
           </div>
 
           <div class="subcard">
-            <div class="subcard-title">单元进度总览</div>
-            <div id="unitOverview">还没有导入任何单元。</div>
+            <div class="subcard-title summary-title" id="unitOverviewToggle">单元进度总览（点此展开/收起）</div>
+            <div id="unitOverviewWrapper" style="display:none;">
+              <div id="unitOverview">还没有导入任何单元。</div>
+            </div>
           </div>
         </div>
       </div>
 
+<!-- 造句大栏目 -->
       <div class="footer">
         단어·错题·통계는 이 브라우저에 저장돼요. 같은 기기·같은 브라우저에서 계속 이어서 공부할 수 있어요.
       </div>
@@ -1728,8 +1860,8 @@
   {
     "unit": "mid4",
     "kr": "운전면허증",
-    "zh": "驾照",
-    "ex": ""
+    "zh": "驾照/驾驶证",
+    "ex": "운전면허증이 없으면 자동차를 운전할 수 없다."
   },
   {
     "unit": "mid4",
@@ -4387,7 +4519,7 @@
     "unit": "mid13",
     "kr": "빌려주다",
     "zh": "借出",
-    "ex": ""
+    "ex": "친구에게 책을 하루 동안 빌려주었다."
   },
   {
     "unit": "mid13",
@@ -7261,7 +7393,7 @@
     "unit": "adv3",
     "kr": "포착하다",
     "zh": "捕捉，抓住",
-    "ex": ""
+    "ex": "기자는 사건의 핵심 순간을 정확히 포착했다."
   },
   {
     "unit": "adv3",
@@ -8599,6 +8731,7 @@
     let orderMode = "random";
     let levelFilter = "all";
     let currentWord = null;
+    let hasAnsweredCurrent = false;
 
     let questionHistory = [];
     let questionIndex = -1;
@@ -8616,6 +8749,7 @@
 
     let unitStats = {};
     let history = [];
+    let wordStats = {};
 
     // AI 相关
     let aiEnabled = false;
@@ -8625,6 +8759,8 @@
     const hintText = document.getElementById("hintText");
     const answerInput = document.getElementById("answerInput");
     const resultMsg = document.getElementById("resultMsg");
+    const resultPill = document.getElementById("resultPill");
+    const resultCard = document.getElementById("resultCard");
     const correctAnswerEl = document.getElementById("correctAnswer");
     const exampleArea = document.getElementById("exampleArea");
     const statsText = document.getElementById("statsText");
@@ -8636,6 +8772,8 @@
     const favBadge = document.getElementById("favCountBadge");
     const historyList = document.getElementById("historyList");
     const unitOverview = document.getElementById("unitOverview");
+    const unitOverviewToggle = document.getElementById("unitOverviewToggle");
+    const unitOverviewWrapper = document.getElementById("unitOverviewWrapper");
     const roundTargetInput = document.getElementById("roundTargetInput");
     const favToggleBtn = document.getElementById("favToggleBtn");
     const themeToggleBtn = document.getElementById("themeToggleBtn");
@@ -8672,63 +8810,13 @@
     const STORAGE_STATS = "tw_stats_v10";
     const STORAGE_UNIT = "tw_unit_v10";
     const STORAGE_HISTORY = "tw_history_v10";
+    const STORAGE_WORD_STATS = "tw_word_stats_v1";
     const STORAGE_TODAY = "tw_today_v10";
     const STORAGE_ROUND_TARGET = "tw_round_target_v10";
     const STORAGE_THEME = "tw_theme_v10";
     const STORAGE_GRAMMAR = "tw_grammar_v1";
     const STORAGE_AI_ENABLED = "tw_ai_enabled_v1";
     const STORAGE_API_KEY = "tw_api_key_v1";
-
-    
-    // 存储后端：优先 localStorage，失败时回退到 sessionStorage
-    let storageBackend = "local";
-    (function () {
-      const testKey = "__tw_storage_test__";
-      try {
-        window.localStorage.setItem(testKey, "1");
-        window.localStorage.removeItem(testKey);
-        storageBackend = "local";
-      } catch (e) {
-        try {
-          window.sessionStorage.setItem(testKey, "1");
-          window.sessionStorage.removeItem(testKey);
-          storageBackend = "session";
-        } catch (e2) {
-          storageBackend = "none";
-          const warn = document.getElementById("storageWarning");
-          if (warn) {
-            warn.style.display = "block";
-            warn.textContent = "⚠️ 当前浏览器禁止本地存储，本页的统计和错题本在刷新后会丢失（建议取消无痕模式或允许网站数据）。";
-          }
-        }
-      }
-    })();
-
-    function storageSet(key, value) {
-      try {
-        if (storageBackend === "local") {
-          window.localStorage.setItem(key, value);
-        } else if (storageBackend === "session") {
-          window.sessionStorage.setItem(key, value);
-        }
-      } catch (e) {
-        console.warn("无法写入存储", e);
-      }
-    }
-
-    function storageGet(key) {
-      try {
-        if (storageBackend === "local") {
-          return window.localStorage.getItem(key);
-        } else if (storageBackend === "session") {
-          return window.sessionStorage.getItem(key);
-        }
-      } catch (e) {
-        console.warn("无法读取存储", e);
-      }
-      return null;
-    }
-
 
     let currentTheme = "light";
 
@@ -8739,22 +8827,23 @@
 
     function saveToStorage() {
       try {
-        storageSet(STORAGE_WORDS, JSON.stringify(words));
-        storageSet(STORAGE_WRONG, JSON.stringify(wrongWords));
-        storageSet(STORAGE_FAV, JSON.stringify(favorites));
-        storageSet(STORAGE_STATS, JSON.stringify({ totalCorrect, totalCount }));
-        storageSet(STORAGE_UNIT, JSON.stringify(unitStats));
-        storageSet(STORAGE_HISTORY, JSON.stringify(history.slice(-30)));
-        storageSet(
+        localStorage.setItem(STORAGE_WORDS, JSON.stringify(words));
+        localStorage.setItem(STORAGE_WRONG, JSON.stringify(wrongWords));
+        localStorage.setItem(STORAGE_FAV, JSON.stringify(favorites));
+        localStorage.setItem(STORAGE_STATS, JSON.stringify({ totalCorrect, totalCount }));
+        localStorage.setItem(STORAGE_UNIT, JSON.stringify(unitStats));
+        localStorage.setItem(STORAGE_HISTORY, JSON.stringify(history.slice(-30)));
+        localStorage.setItem(STORAGE_WORD_STATS, JSON.stringify(wordStats));
+        localStorage.setItem(
           STORAGE_TODAY,
           JSON.stringify({ date: todayKey, correct: todayCorrect, total: todayCount })
         );
-        storageSet(STORAGE_ROUND_TARGET, JSON.stringify(roundTarget));
-        storageSet(STORAGE_THEME, currentTheme);
-        storageSet(STORAGE_GRAMMAR, JSON.stringify(grammars));
-        storageSet(STORAGE_AI_ENABLED, aiEnabled ? "1" : "0");
+        localStorage.setItem(STORAGE_ROUND_TARGET, JSON.stringify(roundTarget));
+        localStorage.setItem(STORAGE_THEME, currentTheme);
+        localStorage.setItem(STORAGE_GRAMMAR, JSON.stringify(grammars));
+        localStorage.setItem(STORAGE_AI_ENABLED, aiEnabled ? "1" : "0");
         if (apiKey) {
-          storageSet(STORAGE_API_KEY, apiKey);
+          localStorage.setItem(STORAGE_API_KEY, apiKey);
         }
       } catch (e) {
         console.warn("无法写入 localStorage", e);
@@ -8798,18 +8887,19 @@
 
     function loadFromStorage() {
       try {
-        const ws = storageGet(STORAGE_WORDS);
-        const ww = storageGet(STORAGE_WRONG);
-        const fv = storageGet(STORAGE_FAV);
-        const st = storageGet(STORAGE_STATS);
-        const us = storageGet(STORAGE_UNIT);
-        const hs = storageGet(STORAGE_HISTORY);
-        const td = storageGet(STORAGE_TODAY);
-        const rt = storageGet(STORAGE_ROUND_TARGET);
-        const th = storageGet(STORAGE_THEME);
-        const gm = storageGet(STORAGE_GRAMMAR);
-        const ae = storageGet(STORAGE_AI_ENABLED);
-        const ak = storageGet(STORAGE_API_KEY);
+        const ws = localStorage.getItem(STORAGE_WORDS);
+        const ww = localStorage.getItem(STORAGE_WRONG);
+        const fv = localStorage.getItem(STORAGE_FAV);
+        const st = localStorage.getItem(STORAGE_STATS);
+        const us = localStorage.getItem(STORAGE_UNIT);
+        const hs = localStorage.getItem(STORAGE_HISTORY);
+        const ws2 = localStorage.getItem(STORAGE_WORD_STATS);
+        const td = localStorage.getItem(STORAGE_TODAY);
+        const rt = localStorage.getItem(STORAGE_ROUND_TARGET);
+        const th = localStorage.getItem(STORAGE_THEME);
+        const gm = localStorage.getItem(STORAGE_GRAMMAR);
+        const ae = localStorage.getItem(STORAGE_AI_ENABLED);
+        const ak = localStorage.getItem(STORAGE_API_KEY);
 
         // 单词数据：本地有且不为空时使用本地，否则使用内置 DEFAULT_WORDS
         if (ws) {
@@ -8829,6 +8919,8 @@
         }
 
         if (ww) wrongWords = JSON.parse(ww);
+        pruneWrongWords();
+        saveToStorage();
         if (fv) favorites = JSON.parse(fv);
         if (st) {
           const obj = JSON.parse(st);
@@ -8837,11 +8929,34 @@
         }
         if (us) unitStats = JSON.parse(us);
         if (hs) history = JSON.parse(hs);
+        if (ws2) {
+          try {
+            wordStats = JSON.parse(ws2) || {};
+          } catch (e) {
+            wordStats = {};
+          }
+        }
         if (td) {
           const obj = JSON.parse(td);
           if (obj.date === todayKey) {
+            // 同一天，正常恢复今日统计
             todayCorrect = obj.correct || 0;
             todayCount = obj.total || 0;
+          } else if (obj.date) {
+            // 新的一天：询问是否清空今日统计
+            const resetDaily = window.confirm(
+              "新的一天开始了，是否将「今日统计」清零重新开始？\n\n确定：清空今日统计\n取消：保留上一天的数据继续累加"
+            );
+            if (resetDaily) {
+              todayCorrect = 0;
+              todayCount = 0;
+            } else {
+              todayCorrect = obj.correct || 0;
+              todayCount = obj.total || 0;
+            }
+            // 无论选择如何，都将日期更新为今天，避免重复弹窗
+            todayKey = getTodayKey();
+            saveToStorage();
           }
         }
         if (rt) {
@@ -9034,7 +9149,37 @@
     }
 
 
-    function updateWrongBadge() {
+    
+    function pruneWrongWords() {
+      if (!wrongWords || wrongWords.length === 0) return;
+      const now = Date.now();
+      const sevenDaysMs = 7 * 24 * 60 * 60 * 1000;
+
+      // 为旧数据补上时间戳
+      wrongWords.forEach((w) => {
+        if (!w.ts) {
+          w.ts = now;
+        }
+      });
+
+      // 只保留最近 7 天内的错题
+      wrongWords = wrongWords.filter((w) => {
+        if (!w.ts) return true;
+        return now - w.ts <= sevenDaysMs;
+      });
+
+      // 再按时间排序，只保留最近 30 条
+      wrongWords.sort((a, b) => {
+        const at = a.ts || 0;
+        const bt = b.ts || 0;
+        return at - bt;
+      });
+      if (wrongWords.length > 30) {
+        wrongWords = wrongWords.slice(wrongWords.length - 30);
+      }
+    }
+
+function updateWrongBadge() {
       wrongBadge.textContent = "错题 " + wrongWords.length;
     }
 
@@ -9093,7 +9238,11 @@
     }
 
     function toggleFavorite() {
-      if (!currentWord) return;
+      if (!currentWord) {
+        resultMsg.textContent = "请先点“下一题”出题，再点「看答案」哦~";
+        resultMsg.className = "result-text";
+        return;
+      }
       const key = wordKey(currentWord);
       const idx = favorites.findIndex((w) => wordKey(w) === key);
       if (idx >= 0) {
@@ -9133,15 +9282,78 @@
     }
 
     // 出题逻辑
-    function showCurrentWord() {
+
+    function wordStatsKey(w) {
+      return wordKey(w);
+    }
+
+    function updateWordStatsForCurrent(correct) {
       if (!currentWord) return;
+      const key = wordStatsKey(currentWord);
+      let st = wordStats[key] || { seen: 0, correct: 0, recentType: null, recentStreak: 0 };
+      st.seen += 1;
+      if (correct) {
+        st.correct += 1;
+        if (st.recentType === "correct") {
+          st.recentStreak += 1;
+        } else {
+          st.recentType = "correct";
+          st.recentStreak = 1;
+        }
+      } else {
+        if (st.recentType === "wrong") {
+          st.recentStreak += 1;
+        } else {
+          st.recentType = "wrong";
+          st.recentStreak = 1;
+        }
+      }
+      wordStats[key] = st;
+    }
+
+    function updateMetaForCurrentWord() {
+      if (!unitPosText || !recentStatText) return;
+      if (!currentWord) {
+        unitPosText.textContent = "";
+        recentStatText.textContent = "";
+        return;
+      }
+      const unit = currentWord.unit || "all";
+      const unitName = getUnitName(unit);
+      if (unit && unit !== "all") {
+        const unitWords = words.filter((w) => w.unit === unit);
+        const total = unitWords.length;
+        let idx = unitWords.findIndex((w) => wordKey(w) === wordKey(currentWord));
+        if (idx >= 0) idx += 1;
+        if (idx > 0 && total > 0) {
+          unitPosText.textContent =
+            unitName + " 单元 · 第 " + idx + " / " + total + " 个";
+        } else {
+          unitPosText.textContent = unitName + " 单元";
+        }
+      } else {
+        unitPosText.textContent = unitName;
+      }
+
+      const key = wordStatsKey(currentWord);
+      const st = wordStats[key];
+      // UI 不再显示最近战绩，留空即可
+      recentStatText.textContent = "";
+    }
+
+    function showCurrentWord() {
+      if (!currentWord) {
+        resultMsg.textContent = "请先点“下一题”出题，再点「看答案」哦~";
+        resultMsg.className = "result-text";
+        return;
+      }
       if (mode === "zh2kr") {
         questionText.textContent = currentWord.zh;
-        hintText.textContent = "请写出对应的韩语。";
+        hintText.textContent = "";
         answerInput.placeholder = "请输入对应的韩语";
       } else {
         questionText.textContent = currentWord.kr;
-        hintText.textContent = "请写出对应的中文意思（大致正确即可）。";
+        hintText.textContent = "";
         answerInput.placeholder = "请输入对应的中文";
       }
       answerInput.value = "";
@@ -9157,6 +9369,7 @@
         wordSentenceHint.textContent =
           "当前单词：" + currentWord.kr + " / " + currentWord.zh;
       }
+      updateMetaForCurrentWord();
       updateFavButton();
       answerInput.focus();
     }
@@ -9175,12 +9388,24 @@
       exampleArea.style.display = "none";
       exampleArea.textContent = "";
       wordSentenceHint.textContent = "当前单词：还没有出题。";
+      if (unitPosText) unitPosText.textContent = "";
+      if (recentStatText) recentStatText.textContent = "";
       wordSentenceInput.value = "";
       wordSentenceResult.style.display = "none";
       wordSentenceResult.textContent = "";
     }
 
-    function pickWord(direction) {
+    
+        function showHint() {
+      // 当前版本不再提供小提示功能，保留空壳防止报错
+      if (!currentWord) {
+        resultMsg.textContent = "现在不提供额外小提示啦，可以直接尝试回忆或看答案。";
+        resultMsg.className = "result-text";
+        return;
+      }
+    }
+
+function pickWord(direction) {
       direction = direction || "next";
       const list = getFilteredList();
       if (!list || list.length === 0) {
@@ -9194,6 +9419,7 @@
         if (questionIndex <= 0) return;
         questionIndex -= 1;
         currentWord = questionHistory[questionIndex];
+        hasAnsweredCurrent = false;
         showCurrentWord();
         // 上一题：默认直接把标准答案也一起显示，避免感觉“答案消失”
         if (currentWord) {
@@ -9221,6 +9447,7 @@
       if (questionIndex >= 0 && questionIndex < questionHistory.length - 1) {
         questionIndex += 1;
         currentWord = questionHistory[questionIndex];
+        hasAnsweredCurrent = false;
         showCurrentWord();
         return;
       }
@@ -9243,6 +9470,7 @@
       currentWord = list[idx];
       questionHistory.push(currentWord);
       questionIndex = questionHistory.length - 1;
+      hasAnsweredCurrent = false;
       showCurrentWord();
     }
 
@@ -9482,21 +9710,30 @@
           kr: word.kr,
           zh: word.zh,
           ex: word.ex || "",
+          ts: Date.now(),
         });
+        // 控制错题本：最近 7 天 + 最近 30 题
+        pruneWrongWords();
         updateWrongBadge();
+        saveToStorage();
       }
     }
 
     function clearWrongBook() {
+      if (!wrongWords || wrongWords.length === 0) {
+        resultMsg.textContent = "当前错题本为空，无需清空。";
+        resultMsg.className = "result-text";
+        return;
+      }
       if (!confirm("确定要清空所有错题吗？")) return;
       wrongWords = [];
       updateWrongBadge();
       saveToStorage();
+      resultMsg.textContent = "✅ 错题本已清空。";
+      resultMsg.className = "result-text";
       if (source === "wrong") {
         pickWord();
         if (!currentWord) {
-          resultMsg.textContent = "✅ 错题本已清空，目前错题专项里没有题目啦。";
-          resultMsg.className = "result-text";
           correctAnswerEl.textContent = "";
           exampleArea.style.display = "none";
           exampleArea.textContent = "";
@@ -9506,10 +9743,31 @@
 
     // 判题
     function checkAnswer() {
-      if (!currentWord) return;
+      if (!currentWord) {
+        resultMsg.textContent = "请先点“下一题”出题，再点「看答案」哦~";
+        resultMsg.className = "result-text";
+        if (resultPill) {
+          resultPill.textContent = "待作答";
+          resultPill.className = "result-pill";
+        }
+        return;
+      }
       const rawUser = answerInput.value;
       const user = normalize(rawUser);
-      if (!user) return;
+      if (!user) {
+        if (answerInput) {
+          answerInput.classList.add("input-shake");
+          setTimeout(() => {
+            answerInput.classList.remove("input-shake");
+          }, 220);
+        }
+        return;
+      }
+      if (hasAnsweredCurrent) {
+        resultMsg.textContent = "本题已经判过分了，如需继续练习请先点「下一题」。";
+        resultMsg.className = "result-text";
+        return;
+      }
 
       let correct = false;
       let almost = false;
@@ -9534,6 +9792,7 @@
       totalCount += 1;
       todayCount += 1;
       roundCount += 1;
+      updateWordStatsForCurrent(correct);
 
       if (correct) {
         totalCorrect += 1;
@@ -9549,6 +9808,17 @@
         } else {
           resultMsg.textContent = "✅ 正确！太棒了~";
           resultMsg.className = "result-text correct";
+          if (resultPill) {
+            resultPill.textContent = "正确";
+            resultPill.className = "result-pill correct";
+          }
+        }
+        if (resultCard) {
+          resultCard.classList.remove("card-wrong");
+          resultCard.classList.add("card-correct");
+          setTimeout(() => {
+            resultCard.classList.remove("card-correct");
+          }, 260);
         }
       } else {
         if (almost && mode === "kr2zh") {
@@ -9557,6 +9827,17 @@
           resultMsg.textContent = "❌ 有错误，已加入错题专项。";
         }
         resultMsg.className = "result-text wrong";
+        if (resultPill) {
+          resultPill.textContent = "错误";
+          resultPill.className = "result-pill wrong";
+        }
+        if (resultCard) {
+          resultCard.classList.remove("card-correct");
+          resultCard.classList.add("card-wrong");
+          setTimeout(() => {
+            resultCard.classList.remove("card-wrong");
+          }, 260);
+        }
         addToWrongBook(currentWord);
       }
 
@@ -9588,6 +9869,33 @@
         exampleArea.textContent = "";
       }
 
+      // 在造句提示区域同步本题判定结果，方便一边看一边造句
+      if (currentWord) {
+        let judgeText = "";
+        if (correct) {
+          if (almost) {
+            judgeText =
+              mode === "zh2kr"
+                ? "本题判定：基本正确（有轻微拼写误差）。"
+                : "本题判定：大致意思正确。";
+          } else {
+            judgeText = "本题判定：完全正确！";
+          }
+        } else {
+          judgeText =
+            almost && mode === "kr2zh"
+              ? "本题判定：接近标准答案，可以再优化表述。"
+              : "本题判定：目前不对，建议对照标准答案记一次。";
+        }
+        wordSentenceHint.textContent =
+          "当前单词：" +
+          currentWord.kr +
+          " / " +
+          currentWord.zh +
+          " · " +
+          judgeText;
+      }
+
       const u = currentWord.unit;
       if (!unitStats[u]) {
         unitStats[u] = {
@@ -9600,6 +9908,8 @@
       if (correct) {
         unitStats[u].correct += 1;
       }
+
+      hasAnsweredCurrent = true;
 
       history.push({
         time: Date.now(),
@@ -9619,11 +9929,7 @@
       updateStats();
       saveToStorage();
 
-      if (correct) {
-        setTimeout(function () {
-          pickWord("next");
-        }, 600);
-      }
+      // 取消自动跳到下一题，由用户手动点“下一题”控制节奏
     }
 
     // 导入单词数据
@@ -9898,8 +10204,22 @@
       pickWord("prev");
     });
     document.getElementById("checkBtn").addEventListener("click", checkAnswer);
+    answerInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        checkAnswer();
+      }
+    });
     document.getElementById("showBtn").addEventListener("click", () => {
-      if (!currentWord) return;
+      if (!currentWord) {
+        resultMsg.textContent = "请先点“下一题”出题，再点「看答案」哦~";
+        resultMsg.className = "result-text";
+        if (resultPill) {
+          resultPill.textContent = "待作答";
+          resultPill.className = "result-pill";
+        }
+        return;
+      }
       if (mode === "zh2kr") {
         correctAnswerEl.textContent =
           "正确答案：韩语「" +
@@ -9927,6 +10247,15 @@
         exampleArea.innerHTML = lines.join("<br/>");
       }
     });
+
+    if (unitOverviewToggle && unitOverviewWrapper) {
+      let unitOverviewOpen = false;
+      unitOverviewToggle.addEventListener("click", () => {
+        unitOverviewOpen = !unitOverviewOpen;
+        unitOverviewWrapper.style.display = unitOverviewOpen ? "block" : "none";
+        unitOverviewToggle.classList.toggle("open", unitOverviewOpen);
+      });
+    }
 
     document.getElementById("unitSelect").addEventListener("change", () => {
       questionHistory = [];
@@ -9991,15 +10320,21 @@
       pickWord("next");
     });
 
-    document.getElementById("sourceWrong").addEventListener("click", () => {
+        document.getElementById("sourceWrong").addEventListener("click", () => {
       source = "wrong";
       document.getElementById("sourceWrong").classList.add("active");
       document.getElementById("sourceAll").classList.remove("active");
       document.getElementById("sourceFav").classList.remove("active");
       questionHistory = [];
       questionIndex = -1;
+      if (!wrongWords || wrongWords.length === 0) {
+        resultMsg.textContent = "当前错题本为空，请先多做几题累积错题哦~";
+        resultMsg.className = "result-text";
+        return;
+      }
       pickWord("next");
     });
+
 
     document.getElementById("sourceFav").addEventListener("click", () => {
       source = "fav";
@@ -10027,12 +10362,19 @@
       questionIndex = -1;
     });
 
-    document.getElementById("resetRoundBtn").addEventListener("click", () => {
+        document.getElementById("resetRoundBtn").addEventListener("click", () => {
       roundCorrect = 0;
       roundCount = 0;
       updateStats();
       saveToStorage();
+      resultMsg.textContent = "本轮统计已重置，从这一题重新开始计数。";
+      resultMsg.className = "result-text";
+      if (resultPill) {
+        resultPill.textContent = "待作答";
+        resultPill.className = "result-pill";
+      }
     });
+
 
     document.getElementById("clearWrongBtn").addEventListener("click", () => {
       clearWrongBook();
@@ -10154,7 +10496,8 @@
     } else {
       clearCurrentWordUIForEmpty();
       updateStats();
-    }
+          updateMetaForCurrentWord();
+}
   </script>
 </body>
 </html>
